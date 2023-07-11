@@ -1,7 +1,7 @@
 from login import login
 from logout import logout
 from api_version import api_version
-from arrays import get_arrays
+from arrays import arrays
 
 FB_IP = '<YOUR_FLASHBLADE_IP>'
 API_TOKEN = '<YOUR_FB_API_TOKEN>'
@@ -22,7 +22,7 @@ if X_AUTH_TOKEN is not None:
         print('Failed to get api versions')
     
     # Get array information
-    GET_ARRAYS = get_arrays(FB_IP, X_AUTH_TOKEN, API_VERSION)
+    GET_ARRAYS = arrays('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, '')
     if GET_ARRAYS is not None:
         #print(GET_ARRAYS)
         ARRAY_NAME = GET_ARRAYS['items'][0]['name'] ## example to get the array name
@@ -34,7 +34,7 @@ if X_AUTH_TOKEN is not None:
     patch_arrays_payload = {
         "banner": "Restricted area. Authorized personnel only." ## example patch arrays payload
     }
-    PATCH_ARRAYS = patch_arrays(FB_IP, X_AUTH_TOKEN, API_VERSION, patch_arrays_payload)
+    PATCH_ARRAYS = arrays('PATCH', FB_IP, X_AUTH_TOKEN, API_VERSION, patch_arrays_payload)
     if PATCH_ARRAYS is not None:
         print(PATCH_ARRAYS)
     else:
