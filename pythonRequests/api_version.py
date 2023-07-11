@@ -12,9 +12,9 @@ def api_version(FB_IP):
 
     if version_response.status_code == 200:
         data = version_response.json()
-        versions = data['versions']
-        return versions
+        API_VERSIONS = data['versions']
+        return API_VERSIONS
     else:
-        print(f'Request failed with status code {version_response.status_code}')
+        print(f'Request to {url} failed with status code {version_response.status_code}')
         return None
 

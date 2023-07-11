@@ -15,8 +15,8 @@ def login(FB_IP, API_TOKEN):
     )
 
     if login_response.status_code == 200:
-        token = login_response.headers.get('X-Auth-Token')
-        return token
+        X_AUTH_TOKEN = login_response.headers.get('X-Auth-Token')
+        return X_AUTH_TOKEN
     else:
         print(f'Authentication failed with status code {login_response.status_code}')
         return None
