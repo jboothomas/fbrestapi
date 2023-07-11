@@ -25,8 +25,8 @@ if X_AUTH_TOKEN is not None:
     GET_ARRAYS = get_arrays(FB_IP, X_AUTH_TOKEN, API_VERSION)
     if GET_ARRAYS is not None:
         #print(GET_ARRAYS)
-        array_name = GET_ARRAYS['items'][0]['name'] ## example to get the array name
-        print(array_name)
+        ARRAY_NAME = GET_ARRAYS['items'][0]['name'] ## example to get the array name
+        print(ARRAY_NAME)
     else:
         print('Failed to get arrays')
 
