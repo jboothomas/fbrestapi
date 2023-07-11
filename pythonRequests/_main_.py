@@ -30,6 +30,15 @@ if X_AUTH_TOKEN is not None:
     else:
         print('Failed to get arrays')
 
+    # Patch arrays
+    patch_arrays_payload = {
+        "banner": "Restricted area. Authorized personnel only." ## example patch arrays payload
+    }
+    PATCH_ARRAYS = patch_arrays(FB_IP, X_AUTH_TOKEN, API_VERSION, patch_arrays_payload)
+    if PATCH_ARRAYS is not None:
+        print(PATCH_ARRAYS)
+    else:
+        print('Failed to patch arrays')
 
     # Use the token to logout
     logout_status = logout(FB_IP, X_AUTH_TOKEN)
