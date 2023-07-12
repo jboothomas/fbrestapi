@@ -1,8 +1,9 @@
 import requests
 import json
+from _sendrequest_ import send_request
 
 
-def directoryservices(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def directoryservices(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -38,36 +39,41 @@ def directoryservices(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     #  ]
     #}
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/directory-services"
-    
-    if METHOD not in ['GET', 'PATCH']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    ENDPOINT = f'api/{API_VERSION}/directory-services'
+    VALIDATE_METHODS = ['GET', 'PATCH']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, directoryservices_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def directoryservices_validateparams(METHOD, PARAMS):
 
-def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'names', 'offset', 'sort'}
+    elif METHOD in ['PATCH']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'ids', 'names'}
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
+
+def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -79,36 +85,52 @@ def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     #  "group_base": "OU=PureGroups,OU=SANManagers"
     #}
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/directory-services/roles"
-    
-    if METHOD not in ['GET', 'PATCH']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    ENDPOINT = f'api/{API_VERSION}/directory-services/roles'
+    VALIDATE_METHODS = ['GET', 'PATCH']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, directoryservices_roles_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def directoryservices_roles_validateparams(METHOD, PARAMS):
 
-def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'role_names' in PARAMS:
+            print("Error: 'ids' and 'role_names' cannot be provided at the same time.")
+            return False
+        if 'ids' in PARAMS and 'role_ids' in PARAMS:
+            print("Error: 'ids' and 'role_ids' cannot be provided at the same time.")
+            return False
+        if 'role_ids' in PARAMS and 'role_names' in PARAMS:
+            print("Error: 'role_ids' and 'role_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'offset', 'role_ids', 'role_names', 'sort'}
+    elif METHOD in ['PATCH']:
+        if 'ids' in PARAMS and 'role_names' in PARAMS:
+            print("Error: 'ids' and 'role_names' cannot be provided at the same time.")
+            return False
+        if 'ids' in PARAMS and 'role_ids' in PARAMS:
+            print("Error: 'ids' and 'role_ids' cannot be provided at the same time.")
+            return False
+        if 'role_ids' in PARAMS and 'role_names' in PARAMS:
+            print("Error: 'role_ids' and 'role_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'ids', 'role_ids', 'role_names'}
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
+def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example applicaiton/json payload
     #{
@@ -144,31 +166,34 @@ def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     #  ]
     #}
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/directory-services/test"
-    
-    if METHOD not in ['GET', 'PATCH']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    ENDPOINT = f'api/{API_VERSION}/directory-services/test'
+    VALIDATE_METHODS = ['GET', 'PATCH']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, directoryservices_test_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def directoryservices_test_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'filter', 'ids', 'limit', 'names', 'sort'}
+    elif METHOD in ['PATCH']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'filter', 'ids', 'names', 'sort'}
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
