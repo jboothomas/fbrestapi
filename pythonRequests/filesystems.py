@@ -106,6 +106,24 @@ def filesystems_groups_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAY
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_groups_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_groups_performance_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        if 'gids' in PARAMS and 'group_names' in PARAMS:
+            print("Error: 'gids' and 'group_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'file_system_ids', 'file_system_names', 'filter', 'gids', 'group_names', 'limit', 'names', 'sort', 'total_only'}
+    
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
 
 def filesystems_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
@@ -116,6 +134,21 @@ def filesystems_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_performance_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        valid_fields = {'continuation_token', 'end_time', 'filter', 'ids', 'limit', 'names', 'offset', 'protocol', 'resolution', 'sort', 'start_time', 'total_only'}
+    
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
     
 
 def filesystems_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
@@ -127,6 +160,38 @@ def filesystems_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_policies_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        if 'member_ids' in PARAMS and 'member_names' in PARAMS:
+            print("Error: 'member_ids' and 'member_names' cannot be provided at the same time.")
+            return False
+        if  'policy_ids' in PARAMS and 'policy_names' in PARAMS:
+            print("Error: 'policy_ids' and 'policy_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'limit', 'member_ids', 'member_names', 'offset', 'policy_ids', 'policy_names', 'sort'}
+    
+    elif METHOD in ['POST', 'DELETE']:
+        if 'member_ids' in PARAMS and 'member_names' in PARAMS:
+            print("Error: 'member_ids' and 'member_names' cannot be provided at the same time.")
+            return False
+        if  'policy_ids' in PARAMS and 'policy_names' in PARAMS:
+            print("Error: 'policy_ids' and 'policy_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'member_ids', 'member_names', 'policy_ids', 'policy_names'}
+    
+
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
 
 def filesystems_policiesall(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
@@ -137,6 +202,29 @@ def filesystems_policiesall(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_policiesall_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_policiesall_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        if 'member_ids' in PARAMS and 'member_names' in PARAMS:
+            print("Error: 'member_ids' and 'member_names' cannot be provided at the same time.")
+            return False
+        if  'policy_ids' in PARAMS and 'policy_names' in PARAMS:
+            print("Error: 'policy_ids' and 'policy_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'limit', 'member_ids', 'member_names', 'offset', 'policy_ids', 'policy_names', 'sort'}
+    
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
 def filesystems_users_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
     ENDPOINT = "file-systems/users/performance"
@@ -146,6 +234,29 @@ def filesystems_users_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYL
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_users_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_users_performance_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
+            print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
+            return False
+        if  'uids' in PARAMS and 'user_names' in PARAMS:
+            print("Error: 'uids' and 'user_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'file_system_ids', 'file_system_names', 'filter', 'limit', 'names', 'sort', 'total_only', 'uids', 'user_names'}
+    
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
 def filesystems_locks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
     ENDPOINT = "file-systems/locks"
@@ -154,6 +265,31 @@ def filesystems_locks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_locks_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
+
+def filesystems_locks_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
+            print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'client_names', 'file_system_ids', 'file_system_names', 'filter', 'inodes', 'limit', 'names', 'paths'}
+    
+    elif METHOD is 'DELETE':
+         if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
+            print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'client_names', 'file_system_ids', 'file_system_names', 'inodes', 'names', 'paths', 'recursive'}
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
 
 
 def filesystems_locks_clients(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
@@ -165,6 +301,26 @@ def filesystems_locks_clients(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD)
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_locks_clients_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_locks_clients_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
+            print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'limit'}
+    
+
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
     
 def filesystems_locks_nlmreclamation(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
@@ -175,6 +331,21 @@ def filesystems_locks_nlmreclamation(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, P
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_locks_nlmreclamation_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
+def filesystems_locks_nlmreclamation_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'POST':
+        valid_fields = {}
+    
+
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
 
 def filesystems_sessions(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
@@ -184,3 +355,22 @@ def filesystems_sessions(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     
     result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_sessions_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
+
+def filesystems_sessions_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD is 'GET':
+        valid_fields = {'continuation_token', 'client_names', 'limit', 'names', 'protocols', 'user_names'}
+    
+    elif METHOD is 'DELETE':
+        valid_fields = {'client_names', 'disruptive', 'names', 'protocols', 'user_names'}
+      
+
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
