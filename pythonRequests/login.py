@@ -1,24 +1,27 @@
 import requests
+from _sendrequest_ import send_request
 
-def login(FB_IP, API_TOKEN):
+def login(FB_IP, API_TOKEN, VALIDATE_SSL):
 
-    # Authenticate and get X-Auth-Token
-    url = f"https://{FB_IP}/api/login"
-    headers = {
-      'api-token': API_TOKEN
+    ENDPOINT = 'api/login'
+    VALIDATE_METHODS = ['POST']
+    HEADERS = {
+        'api-token': API_TOKEN
     }
 
-    response = requests.request(
-        'POST',
-        url,
-        headers=headers,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, 'POST', HEADERS, '', '', login_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    X_AUTH_TOKEN = result[0].get('X-Auth-Token')
+    return X_AUTH_TOKEN
 
-    if response.status_code == 200:
-        X_AUTH_TOKEN = response.headers.get('X-Auth-Token')
-        return X_AUTH_TOKEN
-    else:
-        print(f'Authentication failed with status code {response.status_code}')
-        return None
 
+def login_validateparams(METHOD, PARAMS):
+    if METHOD in ['POST']:
+        valid_fields = {}
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True

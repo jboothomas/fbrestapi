@@ -1,8 +1,10 @@
 import requests
 import json
 
-def send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, validate_func, VALIDATE_METHODS, VALIDATE_SSL):
-    url = f"https://{FB_IP}/api/{API_VERSION}/{ENDPOINT}"
+def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, validate_func, VALIDATE_METHODS, VALIDATE_SSL):
+    url = f"https://{FB_IP}/{ENDPOINT}"
+
+    #print(url)
 
     valid_methods = ['GET', 'POST', 'DELETE', 'PATCH']
 
@@ -14,25 +16,28 @@ def send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_T
         print(f'The parameters for {METHOD} on {url} are not valid.')
         return
 
-    headers = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
-
     # Convert payload to JSON
     payload = json.dumps(PAYLOAD)
+
+    if not VALIDATE_SSL:
+        requests.packages.urllib3.disable_warnings() 
 
     response = requests.request(
         METHOD,
         url,
-        headers=headers,
+        headers=HEADERS,
         params=PARAMS,
         data=payload,
         verify=VALIDATE_SSL  # consider removing this if your FB has a valid SSL cert
     )
 
     if response.status_code == 200:
-        data = response.json()
-        return data
+        header = response.headers
+        try:
+            data = response.json()
+            return header, data
+        except json.JSONDecodeError:
+            return header, response
     else:
         data = response.json()
         errormessage = data['errors'][0]['message']

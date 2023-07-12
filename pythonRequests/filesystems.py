@@ -3,7 +3,7 @@ import json
 from _sendrequest_ import send_request
 
 
-def filesystems(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD):
+def filesystems(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -56,32 +56,34 @@ def filesystems(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD):
     #  "space": {},
     #  "writable": true
     #}
-    ENDPOINT = 'file-systems'
+    ENDPOINT = f'api/{API_VERSION}/file-systems'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE', 'PATCH']
-    VALIDATE_SSL = False
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }
 
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'ids' in PARAMS and 'names' in PARAMS:
             print("Error: 'ids' and 'names' cannot be provided at the same time.")
             return False
         valid_fields = {'continuation_token', 'destroyed', 'filter', 'ids', 'limit', 'names', 'offset', 'sort', 'total_only'}
     
-    elif METHOD is 'POST':
+    elif METHOD in ['POST']:
         valid_fields = {'discard_non_snapshotted_data', 'names', 'overwrite'}
 
-    elif METHOD is 'DELETE':
+    elif METHOD in ['DELETE']:
         if 'ids' in PARAMS and 'names' in PARAMS:
             print("Error: 'ids' and 'names' cannot be provided at the same time.")
             return False
         valid_fields = {'ids', 'names'}
     
-    elif METHOD is 'PATCH':
+    elif METHOD in ['PATCH']:
         if 'ids' in PARAMS and 'names' in PARAMS:
             print("Error: 'ids' and 'names' cannot be provided at the same time.")
             return False
@@ -97,19 +99,20 @@ def filesystems_validateparams(METHOD, PARAMS):
     return True
 
 
-def filesystems_groups_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_groups_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/groups/performance"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/groups/performance'
     VALIDATE_METHODS = ['GET']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_groups_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_groups_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_groups_performance_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'gids' in PARAMS and 'group_names' in PARAMS:
             print("Error: 'gids' and 'group_names' cannot be provided at the same time.")
             return False
@@ -125,19 +128,20 @@ def filesystems_groups_performance_validateparams(METHOD, PARAMS):
     # If no errors were found, the params are valid
     return True
 
-def filesystems_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/performance"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/performance'
     VALIDATE_METHODS = ['GET']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }    
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_performance_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         valid_fields = {'continuation_token', 'end_time', 'filter', 'ids', 'limit', 'names', 'offset', 'protocol', 'resolution', 'sort', 'start_time', 'total_only'}
     
     
@@ -151,19 +155,20 @@ def filesystems_performance_validateparams(METHOD, PARAMS):
     return True
     
 
-def filesystems_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/policies"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/policies'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_policies_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'member_ids' in PARAMS and 'member_names' in PARAMS:
             print("Error: 'member_ids' and 'member_names' cannot be provided at the same time.")
             return False
@@ -193,19 +198,20 @@ def filesystems_policies_validateparams(METHOD, PARAMS):
     return True
 
 
-def filesystems_policiesall(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_policiesall(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/policies-all"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/policies-all'
     VALIDATE_METHODS = ['GET']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_policiesall_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_policiesall_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_policiesall_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'member_ids' in PARAMS and 'member_names' in PARAMS:
             print("Error: 'member_ids' and 'member_names' cannot be provided at the same time.")
             return False
@@ -225,19 +231,20 @@ def filesystems_policiesall_validateparams(METHOD, PARAMS):
     return True
 
 
-def filesystems_users_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_users_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/users/performance"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/users/performance'
     VALIDATE_METHODS = ['GET']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_users_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_users_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_users_performance_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
             print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
             return False
@@ -257,26 +264,27 @@ def filesystems_users_performance_validateparams(METHOD, PARAMS):
     return True
 
 
-def filesystems_locks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_locks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/locks"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/locks'
     VALIDATE_METHODS =  ['GET', 'DELETE']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_locks_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }    
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_locks_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
             print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
             return False
         valid_fields = {'continuation_token', 'client_names', 'file_system_ids', 'file_system_names', 'filter', 'inodes', 'limit', 'names', 'paths'}
     
-    elif METHOD is 'DELETE':
-         if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
+    elif METHOD in ['DELETE']:
+        if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
             print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
             return False
         valid_fields = {'client_names', 'file_system_ids', 'file_system_names', 'inodes', 'names', 'paths', 'recursive'}
@@ -292,19 +300,20 @@ def filesystems_locks_validateparams(METHOD, PARAMS):
 
 
 
-def filesystems_locks_clients(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_locks_clients(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/locks/clients"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/locks/clients'
     VALIDATE_METHODS =  ['GET']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_locks_clients_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }    
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_clients_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_locks_clients_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         if 'file_system_ids' in PARAMS and 'file_system_names' in PARAMS:
             print("Error: 'file_system_ids' and 'file_system_names' cannot be provided at the same time.")
             return False
@@ -322,19 +331,20 @@ def filesystems_locks_clients_validateparams(METHOD, PARAMS):
 
 
     
-def filesystems_locks_nlmreclamation(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_locks_nlmreclamation(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/locks/nlm-reclamation"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/locks/nlm-reclamation'
     VALIDATE_METHODS =  ['POST']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_locks_nlmreclamation_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }    
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_nlmreclamation_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_locks_nlmreclamation_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'POST':
+    if METHOD in ['POST']:
         valid_fields = {}
     
 
@@ -347,22 +357,23 @@ def filesystems_locks_nlmreclamation_validateparams(METHOD, PARAMS):
     # If no errors were found, the params are valid
     return True
 
-def filesystems_sessions(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def filesystems_sessions(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD, VALIDATE_SSL):
 
-    ENDPOINT = "file-systems/sessions"
+    ENDPOINT = f'api/{API_VERSION}/file-systems/sessions'
     VALIDATE_METHODS =  ['GET', 'DELETE']
-    VALIDATE_SSL = False
-    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, PARAMS, PAYLOAD, X_AUTH_TOKEN, filesystems_sessions_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
+    }    
+    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_sessions_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_sessions_validateparams(METHOD, PARAMS):
 
     # Define the set of all possible fields based on method
-    if METHOD is 'GET':
+    if METHOD in ['GET']:
         valid_fields = {'continuation_token', 'client_names', 'limit', 'names', 'protocols', 'user_names'}
     
-    elif METHOD is 'DELETE':
+    elif METHOD in ['DELETE']:
         valid_fields = {'client_names', 'disruptive', 'names', 'protocols', 'user_names'}
       
 

@@ -1,21 +1,27 @@
 import requests
+from _sendrequest_ import send_request
 
-def logout(FB_IP, X_AUTH_TOKEN):
 
-    # Logout using X-Auth-Token
-    url = f"https://{FB_IP}/api/logout"
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+
+def logout(FB_IP, X_AUTH_TOKEN, VALIDATE_SSL):
+
+    ENDPOINT = 'api/logout'
+    VALIDATE_METHODS = ['POST']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
 
-    response = requests.request(
-        'POST',
-        url,
-        headers=headers,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, 'POST', HEADERS, '', '', logout_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        return(f'Logout succesfull code {response.status_code}')
-    else:
-        return(f'Logout failed with status code {response.status_code}')
+def logout_validateparams(METHOD, PARAMS):
+    if METHOD in ['POST']:
+        valid_fields = {}
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
