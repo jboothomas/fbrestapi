@@ -28,7 +28,9 @@ def certificategroups(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         data = response.json()
         return data
     else:
-        print(f'{METHOD} request to {url} failed with status code {response.status_code}')
+        data = response.json()
+        errormessage = data['errors'][0]['message']
+        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
         return None
 
 def certificategroups_certificates(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
@@ -57,7 +59,9 @@ def certificategroups_certificates(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAY
         data = response.json()
         return data
     else:
-        print(f'{METHOD} request to {url} failed with status code {response.status_code}')
+        data = response.json()
+        errormessage = data['errors'][0]['message']
+        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
         return None
 
 def certificategroups_uses(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
@@ -86,5 +90,7 @@ def certificategroups_uses(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         data = response.json()
         return data
     else:
-        print(f'{METHOD} request to {url} failed with status code {response.status_code}')
+        data = response.json()
+        errormessage = data['errors'][0]['message']
+        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
         return None

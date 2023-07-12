@@ -8,7 +8,8 @@ def login(FB_IP, API_TOKEN):
       'api-token': API_TOKEN
     }
 
-    response = requests.post(
+    response = requests.request(
+        'POST',
         url,
         headers=headers,
         verify=False  # consider removing this if your FB has a valid SSL cert

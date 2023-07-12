@@ -28,5 +28,7 @@ def drives(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         data = response.json()
         return data
     else:
-        print(f'{METHOD} request to {url} failed with status code {response.status_code}')
+        data = response.json()
+        errormessage = data['errors'][0]['message']
+        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
         return None

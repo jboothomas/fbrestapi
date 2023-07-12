@@ -5,8 +5,9 @@ def apiversion(FB_IP):
     # Get API versions
     url = f"https://{FB_IP}/api/api_version"
 
-    response = requests.get(
-       url,
+    response = requests.request(
+        'GET',
+        url,
         verify=False  # consider removing this if your FB has a valid SSL cert
     )
 
