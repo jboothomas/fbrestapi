@@ -2,20 +2,11 @@ import requests
 import json
 
 
-def bucketreplicalinks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def arrays_clients_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
-    ## Example application/json payload
-    #{
-    #  "paused": true,
-    #  "remote_credentials": {
-    #    "id": "string",
-    #    "name": "string"
-    #  }
-    #}
-
-    url = f"https://{FB_IP}/api/{API_VERSION}/bucket-replica-links"
+    url = f"https://{FB_IP}/api/{API_VERSION}/arrays/clients/performance"
     
-    if METHOD not in ['GET', 'POST', 'PATCH', 'DELETE']:
+    if METHOD not in ['GET']:
         print(f'The method "{METHOD}" is not valid for {url}.')
         return
     

@@ -1,6 +1,6 @@
 from login import login
 from logout import logout
-from api_version import api_version
+from apiversion import apiversion
 from arrays import arrays
 
 
@@ -16,7 +16,7 @@ def main():
         print(f'Login succesfull received x-auth-token: {X_AUTH_TOKEN}')
 
         ## Get latest api_version
-        GET_API_VERSIONS = api_version(FB_IP)
+        GET_API_VERSIONS = apiversion(FB_IP)
         if GET_API_VERSIONS is not None:
             API_VERSION = GET_API_VERSIONS[-1]
             print(f'RestAPI version will be: {API_VERSION}')

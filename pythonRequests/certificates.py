@@ -2,24 +2,17 @@ import requests
 import json
 
 
-def buckets(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def certificates(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
-    ##Example application/json payload
+    ## Example application/json payload
     #{
-    #  "destroyed": true,
-    #  "hard_limit_enabled": true,
-    #  "object_lock_config": {
-    #    "default_retention_mode": "governance",
-    #    "enabled": true,
-    #    "freeze_locked_objects": true,
-    #    "default_retention": "86400000"
-    #  },
-    #  "quota_limit": "string",
-    #  "retention_lock": "unlocked",
-    #  "versioning": "string"
+    #  "certificate": "string",
+    #  "intermediate_certificate": "string",
+    #  "passphrase": "string",
+    #  "private_key": "string"
     #}
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/buckets"
+    url = f"https://{FB_IP}/api/{API_VERSION}/certificates"
     
     if METHOD not in ['GET', 'POST', 'PATCH', 'DELETE']:
         print(f'The method "{METHOD}" is not valid for {url}.')
@@ -46,11 +39,11 @@ def buckets(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         print(f'{METHOD} request to {url} failed with status code {response.status_code}')
         return None
 
-def buckets_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def certificates_certificategroups(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/buckets/performance"
+    url = f"https://{FB_IP}/api/{API_VERSION}/certificates/certificte-groups"
     
-    if METHOD not in ['GET']:
+    if METHOD not in ['GET', 'POST', 'DELETE']:
         print(f'The method "{METHOD}" is not valid for {url}.')
         return
     
@@ -75,9 +68,9 @@ def buckets_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         print(f'{METHOD} request to {url} failed with status code {response.status_code}')
         return None
 
-def buckets_s3specificperformance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def certificates_uses(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/buckets/s3-specific-performance"
+    url = f"https://{FB_IP}/api/{API_VERSION}/certificates/uses"
     
     if METHOD not in ['GET']:
         print(f'The method "{METHOD}" is not valid for {url}.')

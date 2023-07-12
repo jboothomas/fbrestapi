@@ -1,7 +1,7 @@
 import requests
 import json
 
-def api_version(FB_IP):
+def apiversion(FB_IP):
     # Get API versions
     url = f"https://{FB_IP}/api/api_version"
 

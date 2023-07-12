@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def array_connections(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def arrayconnections(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
 
     ## Example application/json payload
     #{{
@@ -48,7 +48,7 @@ def array_connections(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         print(f'{METHOD} request to {url} failed with status code {response.status_code}')
         return None
 
-def array_connections_connectionkey(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def arrayconnections_connectionkey(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     
     ## Example application/json payload
     #{
@@ -88,7 +88,7 @@ def array_connections_connectionkey(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PA
         print(f'{METHOD} request to {url} failed with status code {response.status_code}')
         return None
 
-def array_connections_path(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def arrayconnections_path(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     url = f"https://{FB_IP}/api/{API_VERSION}/array-connections/path"
 
     if METHOD not in ['GET']:
@@ -116,7 +116,7 @@ def array_connections_path(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
         print(f'{METHOD} request to {url} failed with status code {response.status_code}')
         return None
 
-def array_connections_performance_replication(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def arrayconnections_performance_replication(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     url = f"https://{FB_IP}/api/{API_VERSION}/array-connections/performance/replication"
 
     if METHOD not in ['GET']:
