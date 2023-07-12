@@ -1,5 +1,3 @@
-import requests
-import json
 from _sendrequest_ import send_request
 
 

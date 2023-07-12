@@ -1,4 +1,3 @@
-import requests
 from _sendrequest_ import send_request
 
 

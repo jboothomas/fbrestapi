@@ -1,4 +1,3 @@
-import requests
 from _sendrequest_ import send_request
 
 def login(FB_IP, API_TOKEN, VALIDATE_SSL):
