@@ -10,7 +10,7 @@ def main():
     #USER = '<YOUR_USERNAME>'
     #PASSWORD = '<YOUR_PASSWORD>'
 
-    X_AUTH_TOKEN = login(FB_IP, API_TOKEN)
+    X_AUTH_TOKEN = login(FB_IP, API_TOKEN, False)
 
     if X_AUTH_TOKEN is not None:
         print(f'Login succesfull received x-auth-token: {X_AUTH_TOKEN}')
@@ -43,8 +43,8 @@ def main():
             print('Failed to patch arrays')
 
         # Use the token to logout
-        logout_status = logout(FB_IP, X_AUTH_TOKEN)
-        print(logout_status)
+        logout_status = logout(FB_IP, X_AUTH_TOKEN, False)
+        print(logout_status[1].status_code)
 
     else:
         print("Failed to authenticate")
