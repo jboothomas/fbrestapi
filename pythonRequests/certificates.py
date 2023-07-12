@@ -1,9 +1,8 @@
-import requests
-import json
+from _sendrequest_ import send_request
 
 
-def certificates(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
-
+def certificates(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+    
     ## Example application/json payload
     #{
     #  "certificate": "string",
@@ -11,94 +10,107 @@ def certificates(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
     #  "passphrase": "string",
     #  "private_key": "string"
     #}
-
-    url = f"https://{FB_IP}/api/{API_VERSION}/certificates"
-    
-    if METHOD not in ['GET', 'POST', 'PATCH', 'DELETE']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    ENDPOINT = f'api/{API_VERSION}/certificates'
+    VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, certificates_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def certificates_validateparams(METHOD, PARAMS):
 
-def certificates_certificategroups(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
-
-    url = f"https://{FB_IP}/api/{API_VERSION}/certificates/certificte-groups"
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'names', 'offset', 'sort'}
+    elif METHOD in ['POST']:
+        valid_fields = {'names'}
+    elif METHOD in ['PATCH', 'DELETE']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'ids', 'names'}
     
-    if METHOD not in ['GET', 'POST', 'DELETE']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
+def certificates_certificategroups(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+
+    ENDPOINT = f'api/{API_VERSION}/certificates/certificate-groups'
+    VALIDATE_METHODS = ['GET', 'POST', 'DELETE']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, certificates_certificategroups_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def certificates_validateparams(METHOD, PARAMS):
 
-def certificates_uses(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
-
-    url = f"https://{FB_IP}/api/{API_VERSION}/certificates/uses"
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'certificate_ids' in PARAMS and 'certificate_names' in PARAMS:
+            print("Error: 'certificate_ids' and 'certificate_names' cannot be provided at the same time.")
+            return False
+        if 'certificate_group_ids' in PARAMS and 'certificate_group_names' in PARAMS:
+            print("Error: 'certificate_group_ids' and 'certificate_group_names' cannot be provided at the same time.")
+            return False        
+        valid_fields = {'continuation_token', 'certificate_ids', 'certificate_group_ids', 'certificate_group_names', 'certificate_names', 'filter', 'limit', 'offset', 'sort'}
+    elif METHOD in ['POST', 'DELETE']:
+        if 'certificate_ids' in PARAMS and 'certificate_names' in PARAMS:
+            print("Error: 'certificate_ids' and 'certificate_names' cannot be provided at the same time.")
+            return False
+        if 'certificate_group_ids' in PARAMS and 'certificate_group_names' in PARAMS:
+            print("Error: 'certificate_group_ids' and 'certificate_group_names' cannot be provided at the same time.")
+            return False 
+        valid_fields = {'certificate_ids', 'certificate_group_ids', 'certificate_group_names', 'certificate_names'}
     
-    if METHOD not in ['GET']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
+
+
+def certificates_uses(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+
+    ENDPOINT = f'api/{API_VERSION}/certificates/uses'
+    VALIDATE_METHODS = ['GET']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, certificates_uses_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def certificates_uses_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'names', 'offset', 'sort'}
+    
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
