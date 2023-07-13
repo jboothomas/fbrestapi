@@ -11,8 +11,9 @@ def apiversion(FB_IP, VALIDATE_SSL):
 
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, apiversion_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
-    API_VERSIONS = result[1]['versions']
-    return API_VERSIONS
+    #API_VERSIONS = result[2]['versions']
+    #return API_VERSIONS
+    return result
 
 def apiversion_validateparams(METHOD, PARAMS):
     if METHOD in ['GET']:

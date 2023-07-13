@@ -9,8 +9,9 @@ def login(FB_IP, API_TOKEN, VALIDATE_SSL):
     }
 
     result = send_request(FB_IP, ENDPOINT, 'POST', HEADERS, '', '', login_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
-    X_AUTH_TOKEN = result[0].get('X-Auth-Token')
-    return X_AUTH_TOKEN
+    #X_AUTH_TOKEN = result[1].get('X-Auth-Token')
+    #return X_AUTH_TOKEN
+    return result
 
 
 def login_validateparams(METHOD, PARAMS):

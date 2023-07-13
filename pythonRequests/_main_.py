@@ -7,44 +7,56 @@ from arrays import arrays
 def main():
     FB_IP = '<YOUR_FLASHBLADE_IP>'
     API_TOKEN = '<YOUR_FB_API_TOKEN>'
-    #USER = '<YOUR_USERNAME>'
-    #PASSWORD = '<YOUR_PASSWORD>'
 
-    X_AUTH_TOKEN = login(FB_IP, API_TOKEN, False)
+    ## Authenticate with FlashBlade 
+    POST_LOGIN = login(FB_IP, API_TOKEN, False)
 
-    if X_AUTH_TOKEN is not None:
+    if POST_LOGIN is not None:
+        X_AUTH_TOKEN = POST_LOGIN[1].get('X-Auth-Token')
         print(f'Login succesfull received x-auth-token: {X_AUTH_TOKEN}')
 
-        ## Get latest api_version
-        GET_API_VERSIONS = apiversion(FB_IP)
+        # Get latest API version
+        GET_API_VERSIONS = apiversion(FB_IP, False)
         if GET_API_VERSIONS is not None:
-            API_VERSION = GET_API_VERSIONS[-1]
+            API_VERSION = GET_API_VERSIONS[2]['versions'][-1]
             print(f'RestAPI version will be: {API_VERSION}')
         else:
             print('Failed to get api versions')
     
-        ## Get array information
-        GET_ARRAYS = arrays('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, '')
+        # Get array information
+        GET_ARRAYS = arrays('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, '', '', False)
         if GET_ARRAYS is not None:
-            #print(GET_ARRAYS)
-            ARRAY_NAME = GET_ARRAYS['items'][0]['name'] ## example to get the array name
+            ARRAY_NAME = GET_ARRAYS[2]['items'][0]['name'] ## example to get the array name
             print(ARRAY_NAME)
         else:
             print('Failed to get arrays')
 
         ## Patch arrays
+        ## example patch arrays payload
         patch_arrays_payload = {
-            "banner": "Restricted area. Authorized personnel only." ## example patch arrays payload
+            "banner": "" 
         }
-        PATCH_ARRAYS = arrays('PATCH', FB_IP, X_AUTH_TOKEN, API_VERSION, patch_arrays_payload)
+        PATCH_ARRAYS = arrays('PATCH', FB_IP, X_AUTH_TOKEN, API_VERSION, '', patch_arrays_payload, False)
         if PATCH_ARRAYS is not None:
-            print(PATCH_ARRAYS)
+            print(PATCH_ARRAYS[0])
         else:
             print('Failed to patch arrays')
+        
+        params = {
+        }
 
-        # Use the token to logout
+        METHOD_ELEMENT = audits('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, params, '', False )
+        if METHOD_ELEMENT is not None:
+            print(f'Status code: {METHOD_ELEMENT[0]}')
+            print(f'Header: {METHOD_ELEMENT[1]}')
+            #print(f'Data: {METHOD_ELEMENT[2]}')
+            
+            
+        else:
+            print('failed')
+        # Clear authentication token
         logout_status = logout(FB_IP, X_AUTH_TOKEN, False)
-        print(logout_status[1].status_code)
+        print(f'logout completed with status code: {logout_status[0]}')
 
     else:
         print("Failed to authenticate")

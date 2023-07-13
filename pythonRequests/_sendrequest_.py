@@ -35,9 +35,9 @@ def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, validate_fun
         header = response.headers
         try:
             data = response.json()
-            return header, data
+            return response.status_code, header, data
         except json.JSONDecodeError:
-            return header, response
+            return response.status_code, header
     else:
         data = response.json()
         errormessage = data['errors'][0]['message']
