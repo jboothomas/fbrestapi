@@ -1,21 +1,27 @@
-import requests
-import json
+from _sendrequest_ import send_request
 
-def apiversion(FB_IP):
-    # Get API versions
-    url = f"https://{FB_IP}/api/api_version"
 
-    response = requests.request(
-        'GET',
-        url,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+def apiversion(FB_IP, VALIDATE_SSL):
+    ENDPOINT = 'api/api_version'
+    METHOD = 'GET'
+    HEADERS = {}
+    PARAMS = {}
+    PAYLOAD = {}
+    VALIDATE_METHODS = ['GET']
 
-    if response.status_code == 200:
-        data = response.json()
-        API_VERSIONS = data['versions']
-        return API_VERSIONS
-    else:
-        print(f'Request to {url} failed with status code {response.status_code}')
-        return None
 
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, apiversion_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    API_VERSIONS = result[1]['versions']
+    return API_VERSIONS
+
+def apiversion_validateparams(METHOD, PARAMS):
+    if METHOD in ['GET']:
+        valid_fields = {}
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True
