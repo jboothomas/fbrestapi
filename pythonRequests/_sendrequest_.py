@@ -6,8 +6,6 @@ def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, validate_fun
 
     #print(url)
 
-    valid_methods = ['GET', 'POST', 'DELETE', 'PATCH']
-
     if METHOD not in VALIDATE_METHODS:
         print(f'The method "{METHOD}" is not valid for {url}.')
         return
