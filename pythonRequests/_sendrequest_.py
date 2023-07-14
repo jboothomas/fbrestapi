@@ -21,25 +21,40 @@ def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, validate_fun
 
     if not VALIDATE_SSL:
         requests.packages.urllib3.disable_warnings() 
+    try:
+        response = requests.request(
+            METHOD,
+            url,
+            headers=HEADERS,
+            params=PARAMS,
+            data=payload,
+            verify=VALIDATE_SSL  # consider removing this if your FB has a valid SSL cert
+        )
+        response.raise_for_status() 
 
-    response = requests.request(
-        METHOD,
-        url,
-        headers=HEADERS,
-        params=PARAMS,
-        data=payload,
-        verify=VALIDATE_SSL  # consider removing this if your FB has a valid SSL cert
-    )
-
-    if response.status_code == 200:
-        header = response.headers
-        try:
-            data = response.json()
-            return response.status_code, header, data
-        except json.JSONDecodeError:
-            return response.status_code, header
-    else:
+    except requests.exceptions.HTTPError as e:
+        # An HTTP error occurred
+        print(f'An HTTP error occurred during {METHOD}: {e}')
         data = response.json()
         errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
+        print(f'RESTAPI error message: {errormessage}')
         return None
+
+    except requests.exceptions.RequestException as e:
+        # A network problem occurred
+        print(f'A network problem occurred: {e}')
+        return None
+
+
+    else:
+        # The request was successful
+        #print('The request was successful')
+  
+
+        if response.status_code == 200:
+            header = response.headers
+            try:
+                data = response.json()
+                return response.status_code, header, data
+            except json.JSONDecodeError:
+                return response.status_code, header

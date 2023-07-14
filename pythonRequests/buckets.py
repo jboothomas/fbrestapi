@@ -1,8 +1,7 @@
-import requests
-import json
+from _sendrequest_ import send_request
 
 
-def buckets(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def buckets(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ##Example application/json payload
     #{
@@ -62,64 +61,60 @@ def buckets_validateparams(METHOD, PARAMS):
 
 
 
-def buckets_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+def buckets_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/buckets/performance"
-    
-    if METHOD not in ['GET']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    ENDPOINT = f'api/{API_VERSION}/buckets/performance'
+    VALIDATE_METHODS = ['GET']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, buckets_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def buckets_performance_validateparams(METHOD, PARAMS):
 
-def buckets_s3specificperformance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAYLOAD):
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'end_time', 'filter', 'ids', 'limit', 'names', 'offset', 'resolution', 'sort', 'start_time', 'total_only'}
 
-    url = f"https://{FB_IP}/api/{API_VERSION}/buckets/s3-specific-performance"
-    
-    if METHOD not in ['GET']:
-        print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-    
-    headers = {
-      'x-auth-token': X_AUTH_TOKEN
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True 
+
+def buckets_s3specificperformance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+
+    ENDPOINT = f'api/{API_VERSION}/buckets/s3-specific-performance'
+    VALIDATE_METHODS = ['GET']
+    HEADERS = {
+        'x-auth-token': X_AUTH_TOKEN
     }
-    # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
 
-    response = requests.request(
-        METHOD,
-        url, 
-        headers=headers, 
-        data=payload,
-        verify=False  # consider removing this if your FB has a valid SSL cert
-    )
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, buckets_s3specificperformance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    return result
 
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'{METHOD} request to {url} failed with status code {response.status_code} error message: {errormessage}')
-        return None
+def buckets_s3specificperformance_validateparams(METHOD, PARAMS):
+
+    # Define the set of all possible fields based on method
+    if METHOD in ['GET']:
+        if 'ids' in PARAMS and 'names' in PARAMS:
+            print("Error: 'ids' and 'names' cannot be provided at the same time.")
+            return False
+        valid_fields = {'continuation_token', 'end_time', 'filter', 'ids', 'limit', 'names', 'offset', 'resolution', 'sort', 'start_time', 'total_only'}
+
+    # Check if any field in params is not in possible_fields
+    for field in PARAMS:
+        if field not in valid_fields:
+            print(f"Error: Unknown field '{field}'.")
+            return False
+
+    # If no errors were found, the params are valid
+    return True 
