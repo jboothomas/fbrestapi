@@ -128,7 +128,7 @@ def filesystemreplicalink_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAR
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalink_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalink_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystemreplicalink_policies_validateparams(METHOD, PARAMS):
@@ -176,7 +176,7 @@ def filesystemreplicalinks_transfer(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PA
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalinks_transfer_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalinks_transfer_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystemreplicalinks_transfer_validateparams(METHOD, PARAMS):

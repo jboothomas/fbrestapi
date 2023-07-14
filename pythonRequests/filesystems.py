@@ -104,7 +104,7 @@ def filesystems_groups_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAR
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_groups_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_groups_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_groups_performance_validateparams(METHOD, PARAMS):
@@ -133,7 +133,7 @@ def filesystems_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PA
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_performance_validateparams(METHOD, PARAMS):
@@ -160,7 +160,7 @@ def filesystems_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLO
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_policies_validateparams(METHOD, PARAMS):
@@ -203,7 +203,7 @@ def filesystems_policiesall(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PA
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_policiesall_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_policiesall_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_policiesall_validateparams(METHOD, PARAMS):
@@ -236,7 +236,7 @@ def filesystems_users_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARA
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_users_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_users_performance_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_users_performance_validateparams(METHOD, PARAMS):
@@ -269,7 +269,7 @@ def filesystems_locks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD,
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_locks_validateparams(METHOD, PARAMS):
@@ -305,7 +305,7 @@ def filesystems_locks_clients(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, 
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_clients_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_clients_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_locks_clients_validateparams(METHOD, PARAMS):
@@ -336,7 +336,7 @@ def filesystems_locks_nlmreclamation(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, P
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_nlmreclamation_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_locks_nlmreclamation_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_locks_nlmreclamation_validateparams(METHOD, PARAMS):
@@ -362,7 +362,7 @@ def filesystems_sessions(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLO
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, API_VERSION, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_sessions_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystems_sessions_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 def filesystems_sessions_validateparams(METHOD, PARAMS):
