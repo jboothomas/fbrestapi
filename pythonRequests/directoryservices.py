@@ -1,7 +1,7 @@
 from _sendrequest_ import send_request
 
 
-def directoryservices(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def directoryservices(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -39,15 +39,12 @@ def directoryservices(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD,
 
     ENDPOINT = f'api/{API_VERSION}/directory-services'
     VALIDATE_METHODS = ['GET', 'PATCH']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def directoryservices_roles(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -61,15 +58,12 @@ def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PA
 
     ENDPOINT = f'api/{API_VERSION}/directory-services/roles'
     VALIDATE_METHODS = ['GET', 'PATCH']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def directoryservices_test(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example applicaiton/json payload
     #{
@@ -107,9 +101,6 @@ def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAY
 
     ENDPOINT = f'api/{API_VERSION}/directory-services/test'
     VALIDATE_METHODS = ['GET', 'PATCH']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result

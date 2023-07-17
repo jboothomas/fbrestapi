@@ -1,7 +1,7 @@
 from _sendrequest_ import send_request
 
 
-def filesystems(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -56,108 +56,87 @@ def filesystems(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALID
     #}
     ENDPOINT = f'api/{API_VERSION}/file-systems'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE', 'PATCH']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_groups_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_groups_performance(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/groups/performance'
     VALIDATE_METHODS = ['GET']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_performance(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/performance'
     VALIDATE_METHODS = ['GET']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }    
+ 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_policies(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/policies'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_policiesall(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_policiesall(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/policies-all'
     VALIDATE_METHODS = ['GET']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_users_performance(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_users_performance(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/users/performance'
     VALIDATE_METHODS = ['GET']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_locks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_locks(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/locks'
     VALIDATE_METHODS =  ['GET', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }    
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_locks_clients(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_locks_clients(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/locks/clients'
     VALIDATE_METHODS =  ['GET']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }    
+  
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
     
-def filesystems_locks_nlmreclamation(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_locks_nlmreclamation(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/locks/nlm-reclamation'
     VALIDATE_METHODS =  ['POST']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }    
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystems_sessions(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystems_sessions(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-systems/sessions'
     VALIDATE_METHODS =  ['GET', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }    
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result

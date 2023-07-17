@@ -1,35 +1,29 @@
 from _sendrequest_ import send_request
 
 
-def objectstoreaccesspolicies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def objectstoreaccesspolicies(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example application/json payload:
     #null
 
     ENDPOINT = f'api/{API_VERSION}/object-store-access-policies'
     VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
-def objectstoreaccesspolicies_objectstoreusers(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def objectstoreaccesspolicies_objectstoreusers(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example application/json payload:
     #
 
     ENDPOINT = f'api/{API_VERSION}/object-store-policies/object-store-users'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
-def objectstoreaccesspolicies_rules(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def objectstoreaccesspolicies_rules(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example application/json payload:
     #{
@@ -60,9 +54,6 @@ def objectstoreaccesspolicies_rules(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PA
 
     ENDPOINT = f'api/{API_VERSION}/object-store-policies/rules'
     VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result

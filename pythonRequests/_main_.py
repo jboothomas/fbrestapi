@@ -24,8 +24,12 @@ def main():
         else:
             print('Failed to get api versions')
     
+        HEADERS = {
+             x-auth-token': X_AUTH_TOKEN
+        }
+
         # Get array information
-        GET_ARRAYS = arrays('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, '', '', False)
+        GET_ARRAYS = arrays('GET', FB_IP, API_VERSION, HEADERS, '', '', False)
         if GET_ARRAYS is not None:
             ARRAY_NAME = GET_ARRAYS[2]['items'][0]['name'] ## example to get the array name
             print(ARRAY_NAME)
@@ -37,7 +41,7 @@ def main():
         patch_arrays_payload = {
             "banner": "" 
         }
-        PATCH_ARRAYS = arrays('PATCH', FB_IP, X_AUTH_TOKEN, API_VERSION, '', patch_arrays_payload, False)
+        PATCH_ARRAYS = arrays('PATCH', FB_IP, API_VERSION, HEADERS, '', patch_arrays_payload, False)
         if PATCH_ARRAYS is not None:
             print(PATCH_ARRAYS[0])
         else:
@@ -47,7 +51,7 @@ def main():
         }
 
         ## Example call and return elements
-        METHOD_ELEMENT = drives('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, params, '', False )
+        METHOD_ELEMENT = drives('GET', FB_IP, API_VERSION, HEADERS, params, '', False )
         if METHOD_ELEMENT is not None:
             print(f'Status code: {METHOD_ELEMENT[0]}')
             print(f'Header: {METHOD_ELEMENT[1]}')

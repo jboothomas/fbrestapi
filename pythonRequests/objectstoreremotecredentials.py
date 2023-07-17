@@ -1,7 +1,7 @@
 from _sendrequest_ import send_request
 
 
-def objectstoreremotecredentials(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def objectstoreremotecredentials(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example applicaiton/json payload:
     #{
@@ -12,9 +12,6 @@ def objectstoreremotecredentials(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAM
     
     ENDPOINT = f'api/{API_VERSION}/object-store-remote-credentials'
     VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result

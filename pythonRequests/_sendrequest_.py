@@ -9,7 +9,7 @@ def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_MET
         return
 
     # Convert payload to JSON
-    payload = json.dumps(PAYLOAD)
+    #payload = json.dumps(PAYLOAD)
 
     if not VALIDATE_SSL:
         requests.packages.urllib3.disable_warnings() 
@@ -19,7 +19,7 @@ def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_MET
             url,
             headers=HEADERS,
             params=PARAMS,
-            data=payload,
+            data=PAYLOAD,
             verify=VALIDATE_SSL  # consider removing this if your FB has a valid SSL cert
         )
         response.raise_for_status() 

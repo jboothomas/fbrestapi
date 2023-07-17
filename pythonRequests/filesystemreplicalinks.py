@@ -1,7 +1,7 @@
 from _sendrequest_ import send_request
 
 
-def filesystemreplicalinks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystemreplicalinks(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ## Example application/json payload
     #{
@@ -56,31 +56,24 @@ def filesystemreplicalinks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAY
     #}
     ENDPOINT = f'api/{API_VERSION}/file-system-replica-links'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystemreplicalink_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystemreplicalink_policies(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-system-replica-links/policies'
     VALIDATE_METHODS = ['GET', 'POST', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
+
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def filesystemreplicalinks_transfer(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def filesystemreplicalinks_transfer(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     ENDPOINT = f'api/{API_VERSION}/file-system-replica-links/transfer'
     VALIDATE_METHODS = ['GET']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }    
+ 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result

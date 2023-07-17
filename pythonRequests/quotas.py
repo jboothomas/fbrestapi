@@ -1,7 +1,7 @@
 from _sendrequest_ import send_request
 
 
-def quotas_groups(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def quotas_groups(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example application/json payload:
     #{
@@ -10,14 +10,11 @@ def quotas_groups(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VAL
 
     ENDPOINT = f'api/{API_VERSION}/quotas/groups'
     VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
-def quotas_settings(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def quotas_settings(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example application/json payload:
     #{
@@ -27,15 +24,12 @@ def quotas_settings(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, V
 
     ENDPOINT = f'api/{API_VERSION}/quotas/settings'
     VALIDATE_METHODS = ['GET', 'PATCH']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
 
-def quotas_users(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def quotas_users(METHOD, FB_IP, API_VERSION, HEADERS, PARAMS, PAYLOAD, VALIDATE_SSL):
 
     #Example applicaiton/json payload:
     #{
@@ -44,9 +38,6 @@ def quotas_users(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALI
 
     ENDPOINT = f'api/{API_VERSION}/quotas/users'
     VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
-    HEADERS = {
-        'x-auth-token': X_AUTH_TOKEN
-    }
 
     result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
