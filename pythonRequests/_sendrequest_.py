@@ -4,8 +4,6 @@ import json
 def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL):
     url = f"https://{FB_IP}/{ENDPOINT}"
 
-    #print(url)
-
     if METHOD not in VALIDATE_METHODS:
         print(f'The method "{METHOD}" is not valid for {url}.')
         return
