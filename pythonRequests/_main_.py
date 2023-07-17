@@ -2,6 +2,7 @@ from login import login
 from logout import logout
 from apiversion import apiversion
 from arrays import arrays
+from drives import drives
 
 
 def main():
@@ -45,11 +46,12 @@ def main():
         params = {
         }
 
-        METHOD_ELEMENT = audits('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, params, '', False )
+        ## Example call and return elements
+        METHOD_ELEMENT = drives('GET', FB_IP, X_AUTH_TOKEN, API_VERSION, params, '', False )
         if METHOD_ELEMENT is not None:
             print(f'Status code: {METHOD_ELEMENT[0]}')
             print(f'Header: {METHOD_ELEMENT[1]}')
-            #print(f'Data: {METHOD_ELEMENT[2]}')
+            print(f'Data: {METHOD_ELEMENT[2]}')
             
             
         else:
