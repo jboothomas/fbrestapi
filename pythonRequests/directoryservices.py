@@ -43,32 +43,8 @@ def directoryservices(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD,
         'x-auth-token': X_AUTH_TOKEN
     }
 
-    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, directoryservices_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
-
-def directoryservices_validateparams(METHOD, PARAMS):
-
-    # Define the set of all possible fields based on method
-    if METHOD in ['GET']:
-        if 'ids' in PARAMS and 'names' in PARAMS:
-            print("Error: 'ids' and 'names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'names', 'offset', 'sort'}
-    elif METHOD in ['PATCH']:
-        if 'ids' in PARAMS and 'names' in PARAMS:
-            print("Error: 'ids' and 'names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'ids', 'names'}
-    
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True
-
 
 
 def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
@@ -89,43 +65,8 @@ def directoryservices_roles(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PA
         'x-auth-token': X_AUTH_TOKEN
     }
 
-    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, directoryservices_roles_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
-
-def directoryservices_roles_validateparams(METHOD, PARAMS):
-
-    # Define the set of all possible fields based on method
-    if METHOD in ['GET']:
-        if 'ids' in PARAMS and 'role_names' in PARAMS:
-            print("Error: 'ids' and 'role_names' cannot be provided at the same time.")
-            return False
-        if 'ids' in PARAMS and 'role_ids' in PARAMS:
-            print("Error: 'ids' and 'role_ids' cannot be provided at the same time.")
-            return False
-        if 'role_ids' in PARAMS and 'role_names' in PARAMS:
-            print("Error: 'role_ids' and 'role_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'offset', 'role_ids', 'role_names', 'sort'}
-    elif METHOD in ['PATCH']:
-        if 'ids' in PARAMS and 'role_names' in PARAMS:
-            print("Error: 'ids' and 'role_names' cannot be provided at the same time.")
-            return False
-        if 'ids' in PARAMS and 'role_ids' in PARAMS:
-            print("Error: 'ids' and 'role_ids' cannot be provided at the same time.")
-            return False
-        if 'role_ids' in PARAMS and 'role_names' in PARAMS:
-            print("Error: 'role_ids' and 'role_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'ids', 'role_ids', 'role_names'}
-    
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True
 
 
 def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
@@ -170,28 +111,5 @@ def directoryservices_test(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAY
         'x-auth-token': X_AUTH_TOKEN
     }
 
-    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, directoryservices_test_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
-
-def directoryservices_test_validateparams(METHOD, PARAMS):
-
-    # Define the set of all possible fields based on method
-    if METHOD in ['GET']:
-        if 'ids' in PARAMS and 'names' in PARAMS:
-            print("Error: 'ids' and 'names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'filter', 'ids', 'limit', 'names', 'sort'}
-    elif METHOD in ['PATCH']:
-        if 'ids' in PARAMS and 'names' in PARAMS:
-            print("Error: 'ids' and 'names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'filter', 'ids', 'names', 'sort'}
-    
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True

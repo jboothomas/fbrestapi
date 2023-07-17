@@ -1,17 +1,13 @@
 import requests
 import json
 
-def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, validate_func, VALIDATE_METHODS, VALIDATE_SSL):
+def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL):
     url = f"https://{FB_IP}/{ENDPOINT}"
 
     #print(url)
 
     if METHOD not in VALIDATE_METHODS:
         print(f'The method "{METHOD}" is not valid for {url}.')
-        return
-
-    if not validate_func(METHOD, PARAMS):
-        print(f'The parameters for {METHOD} on {url} are not valid.')
         return
 
     # Convert payload to JSON

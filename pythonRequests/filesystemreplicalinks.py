@@ -60,65 +60,8 @@ def filesystemreplicalinks(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAY
         'x-auth-token': X_AUTH_TOKEN
     }
 
-    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalinks_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
-
-def filesystemreplicalinks_validateparams(METHOD, PARAMS):
-
-    # Define the set of all possible fields based on method
-    if METHOD in ['GET']:
-        if 'ids' in PARAMS and 'names' in PARAMS:
-            print("Error: 'ids' and 'names' cannot be provided at the same time.")
-            return False
-        if 'local_file_system_ids' in PARAMS and 'local_file_system_names' in PARAMS:
-            print("Error: 'local_file_system_ids' and 'local_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'remote_file_system_ids' in PARAMS and 'remote_file_system_names' in PARAMS:
-            print("Error: 'remote_file_system_ids' and 'remote_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'remote_ids' in PARAMS and 'remote_names' in PARAMS:
-            print("Error: 'remote_ids' and 'remote_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'local_file_system_ids', 'local_file_system_names', 'offset', 'remote_file_syste_ids', 'remote_file_system_names', 'remote_ids', 'remote_names', 'sort'}
-    
-    elif METHOD in ['POST']:
-        if 'local_file_system_ids' in PARAMS and 'local_file_system_names' in PARAMS:
-            print("Error: 'local_file_system_ids' and 'local_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'remote_file_system_ids' in PARAMS and 'remote_file_system_names' in PARAMS:
-            print("Error: 'remote_file_system_ids' and 'remote_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'remote_ids' in PARAMS and 'remote_names' in PARAMS:
-            print("Error: 'remote_ids' and 'remote_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'ids', 'local_file_system_ids', 'local_file_system_names', 'remote_file_system_names', 'remote_ids', 'remote_names'}
-
-    elif METHOD in ['DELETE']:
-        if 'local_file_system_ids' in PARAMS and 'local_file_system_names' in PARAMS:
-            print("Error: 'local_file_system_ids' and 'local_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'remote_file_system_ids' in PARAMS and 'remote_file_system_names' in PARAMS:
-            print("Error: 'remote_file_system_ids' and 'remote_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'remote_ids' in PARAMS and 'remote_names' in PARAMS:
-            print("Error: 'remote_ids' and 'remote_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'ids', 'local_file_system_ids', 'local_file_system_names', 'remote_file_system_names', 'remote_ids', 'remote_names', 'cancel_in_progress_transfers'}
-    
-    elif METHOD in ['PATCH']:
-        if 'ids' in PARAMS and 'names' in PARAMS:
-            print("Error: 'ids' and 'names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'delete_link_on_eradication', 'discard_detailed_permissions', 'discard_non_snapshotted_data', 'ids', 'ignore_usage', 'names'}
-
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True
 
 
 def filesystemreplicalink_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
@@ -128,46 +71,9 @@ def filesystemreplicalink_policies(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PAR
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }
-    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalink_policies_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
 
-def filesystemreplicalink_policies_validateparams(METHOD, PARAMS):
-
-    # Define the set of all possible fields based on method
-    if METHOD in ['GET']:
-        if 'local_file_system_ids' in PARAMS and 'local_file_system_names' in PARAMS:
-            print("Error: 'local_file_system_ids' and 'local_file_system_names' cannot be provided at the same time.")
-            return False
-        if 'policy_ids' in PARAMS and 'policy_names' in PARAMS:
-            print("Error: 'policy_ids' and 'policy_names' cannot be provided at the same time.")
-            return False
-        if 'remote_ids' in PARAMS and 'remote_names' in PARAMS:
-            print("Error: 'remote_ids' and 'remote_names' cannot be provided at the same time.")
-            return False
-        if 'remote_file_system_ids' in PARAMS and 'remote_file_system_names' in PARAMS:
-            print("Error: 'remote_file_system_ids' and 'remote_file_system_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'continuation_token', 'filter', 'limit', 'local_file_system_ids', 'local_file_system_names', 'member_ids', 'offset', 'policy_ids', 'policy_names', 'remote_ids', 'remote_file_system_ids', 'remote_file_system_names', 'remote_names', 'sort'}
-    elif METHOD in ['POST', 'DELETE']:
-        if 'local_file_system_ids' in PARAMS and 'local_file_system_names' in PARAMS:
-            print("Error: 'local_file_system_ids' and 'local_file_system_names' cannot be provided at the same time.")
-            return Flashe
-        if 'policy_ids' in PARAMS and 'policy_names' in PARAMS:
-            print("Error: 'policy_ids' and 'policy_names' cannot be provided at the same time.")
-            return False
-        if 'remote_ids' in PARAMS and 'remote_names' in PARAMS:
-            print("Error: 'remote_ids' and 'remote_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'local_file_system_ids', 'local_file_system_names', 'member_ids', 'policy_ids', 'policy_names', 'remote_ids', 'remote_names',}
-    
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True
 
 def filesystemreplicalinks_transfer(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
 
@@ -176,24 +82,5 @@ def filesystemreplicalinks_transfer(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PA
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
     }    
-    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, filesystemreplicalinks_transfer_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_METHODS, VALIDATE_SSL)
     return result
-
-def filesystemreplicalinks_transfer_validateparams(METHOD, PARAMS):
-
-    # Define the set of all possible fields based on method
-    if METHOD in ['GET']:
-        if 'remote_ids' in PARAMS and 'remote_names' in PARAMS:
-            print("Error: 'remote_ids' and 'remote_names' cannot be provided at the same time.")
-            return False
-        valid_fields = {'continuation_token', 'filter', 'ids', 'limit', 'names_or_owner_names', 'offset', 'remote_ids', 'remote_names', 'sort', 'total_only'}
-    
-    
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True

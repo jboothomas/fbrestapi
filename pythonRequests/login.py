@@ -8,20 +8,7 @@ def login(FB_IP, API_TOKEN, VALIDATE_SSL):
         'api-token': API_TOKEN
     }
 
-    result = send_request(FB_IP, ENDPOINT, 'POST', HEADERS, '', '', login_validateparams, VALIDATE_METHODS, VALIDATE_SSL)
+    result = send_request(FB_IP, ENDPOINT, 'POST', HEADERS, '', '', VALIDATE_METHODS, VALIDATE_SSL)
     #X_AUTH_TOKEN = result[1].get('X-Auth-Token')
     #return X_AUTH_TOKEN
     return result
-
-
-def login_validateparams(METHOD, PARAMS):
-    if METHOD in ['POST']:
-        valid_fields = {}
-    # Check if any field in params is not in possible_fields
-    for field in PARAMS:
-        if field not in valid_fields:
-            print(f"Error: Unknown field '{field}'.")
-            return False
-
-    # If no errors were found, the params are valid
-    return True
