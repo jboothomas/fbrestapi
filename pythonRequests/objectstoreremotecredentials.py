@@ -1,19 +1,16 @@
 from _sendrequest_ import send_request
 
 
-def objectstoreaccounts(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
+def objectstoreremotecredentials(METHOD, FB_IP, X_AUTH_TOKEN, API_VERSION, PARAMS, PAYLOAD, VALIDATE_SSL):
     
     #Example applicaiton/json payload:
     #{
-    # "bucket_defaults": {
-    #    "hard_limit_enabled": true,
-    #    "quota_limit": "string"
-    #  },
-    #  "hard_limit_enabled": true,
-    #  "quota_limit": "string"
+    #  "name": "string",
+    #  "access_key_id": "PSFBIKZFCAAAKOEJ",
+    #  "secret_access_key": "0BEC00003+b1228C223c0FbF1ab5e4GICJGBPJPEOLJCD"
     #}
-
-    ENDPOINT = f'api/{API_VERSION}/object-store-accounts'
+    
+    ENDPOINT = f'api/{API_VERSION}/object-store-remote-credentials'
     VALIDATE_METHODS = ['GET', 'POST', 'PATCH', 'DELETE']
     HEADERS = {
         'x-auth-token': X_AUTH_TOKEN
