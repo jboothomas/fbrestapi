@@ -4,6 +4,10 @@ from apiversion import apiversion
 from arrays import arrays
 from drives import drives
 
+def load_private_key(file_path):
+    with open(file_path, 'r') as key_file:
+        private_key = key_file.read()
+    return private_key
 
 def main():
     FB_IP = '<YOUR_FLASHBLADE_IP>'
@@ -14,11 +18,13 @@ def main():
     sub_input = "sub_value"
     issuer_input = "issuer_value"
     aud_input = "aud_valuef"
-    private_key = """
------BEGIN RSA PRIVATE KEY-----
-abcdef
------END RSA PRIVATE KEY-----
-"""
+    private_key = load_private_key('path_to_your_private_key_file')
+## manual private key input example :
+#    private_key = """
+#-----BEGIN RSA PRIVATE KEY-----
+#HereIsIsPrivateKeyContents
+#-----END RSA PRIVATE KEY-----
+#"""
     jwt = create_jwt(kid_input, sub_input, issuer_input, aud_input, private_key)
     print(jwt)
 
