@@ -28,9 +28,13 @@ def send_request(FB_IP, ENDPOINT, METHOD, HEADERS, PARAMS, PAYLOAD, VALIDATE_MET
         # An HTTP error occurred
         print(f'An HTTP error occurred during {METHOD}: {e}')
         data = response.json()
-        errormessage = data['errors'][0]['message']
-        print(f'RESTAPI error message: {errormessage}')
-        return None
+        try :
+            errormessage = data['errors'][0]['message']
+            print(f'RESTAPI error message: {errormessage}')
+            return None
+        except:
+            return None
+       
 
     except requests.exceptions.RequestException as e:
         # A network problem occurred

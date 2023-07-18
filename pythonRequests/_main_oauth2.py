@@ -1,5 +1,5 @@
-from login import login
-from logout import logout
+from oauth2 import oauth2_token
+from _jwt_ import create_jwt
 from apiversion import apiversion
 from arrays import arrays
 from drives import drives
@@ -9,12 +9,32 @@ def main():
     FB_IP = '<YOUR_FLASHBLADE_IP>'
     API_TOKEN = '<YOUR_FB_API_TOKEN>'
 
-    ## Authenticate with FlashBlade 
-    POST_LOGIN = login(FB_IP, API_TOKEN, False)
+    ## Provide oauth2 parameters
+    kid_input = "kid_value"
+    sub_input = "sub_value"
+    issuer_input = "issuer_value"
+    aud_input = "aud_valuef"
+    private_key = """
+-----BEGIN RSA PRIVATE KEY-----
+abcdef
+-----END RSA PRIVATE KEY-----
+"""
+    jwt = create_jwt(kid_input, sub_input, issuer_input, aud_input, private_key)
+    print(jwt)
 
-    if POST_LOGIN is not None:
-        X_AUTH_TOKEN = POST_LOGIN[1].get('X-Auth-Token')
-        print(f'Login succesfull received x-auth-token: {X_AUTH_TOKEN}')
+    payload = {
+        'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
+        'subject_token': jwt,
+        'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt'
+    }
+
+    ## Authenticate with FlashBlade 
+    POST_OAUTH2 = oauth2_token('POST', FB_IP, payload, False )
+  
+
+    if POST_OAUTH2 is not None:
+        BEARER_TOKEN = POST_OAUTH2[2]['access_token']
+        print(f'Login succesfull received x-auth-token: {BEARER_TOKEN}')
 
         # Get latest API version
         GET_API_VERSIONS = apiversion(FB_IP, False)
@@ -25,7 +45,7 @@ def main():
             print('Failed to get api versions')
     
         HEADERS = {
-             x-auth-token': X_AUTH_TOKEN
+            'Authorization': 'Bearer ' + BEARER_TOKEN
         }
 
         # Get array information
@@ -60,9 +80,6 @@ def main():
             
         else:
             print('failed')
-        # Clear authentication token
-        logout_status = logout(FB_IP, X_AUTH_TOKEN, False)
-        print(f'logout completed with status code: {logout_status[0]}')
 
     else:
         print("Failed to authenticate")
